@@ -4,7 +4,7 @@ const port = 8000
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'Hello CICD!'
+    message: 'Hello ECS!'
   })
 })
 
