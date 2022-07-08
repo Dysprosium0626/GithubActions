@@ -34,7 +34,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: simplehttp
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -53,7 +53,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: simplehttp
-          image: 066254782570.dkr.ecr.us-east-1.amazonaws.com/simplehttp:latest
+          image: ${{ secrets.AWS_ECR_REGISTRY }}/simplehttp:${{ github.sha }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
